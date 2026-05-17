@@ -565,18 +565,16 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 // ══════════════════════════════════════════════════════════
 // GITHUB PAGES MODE — REST API via fetch()
 // ══════════════════════════════════════════════════════════
-var SCRIPT_URL = ''; // <- Cole aqui a URL do seu Apps Script Web App
-var _SESSION_TOKEN = '';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMMD1AfsSdS5Bjdi2jUb0y8QJG0OV54-vrRYXMQRfldXjrSoB8e9An3CAVEDiKPPVPdA/exec';
 var _SESSION_EMAIL = '';
 var _SESSION_NOME  = '';
 try {
-  _SESSION_TOKEN = localStorage.getItem('chamada_token') || '';
   _SESSION_EMAIL = localStorage.getItem('chamada_email') || '';
   _SESSION_NOME  = localStorage.getItem('chamada_nome')  || '';
 } catch(e) {}
 
 function apiGet(action, params, cb, errCb) {
-  var url = SCRIPT_URL + '?action=' + action + '&token=' + encodeURIComponent(_SESSION_TOKEN);
+  var url = SCRIPT_URL + '?action=' + action;
   if (params) {
     Object.keys(params).forEach(function(k){
       url += '&' + k + '=' + encodeURIComponent(params[k] || '');
@@ -593,7 +591,6 @@ function apiGet(action, params, cb, errCb) {
 
 function apiPost(action, body, cb, errCb) {
   body.action = action;
-  body.token  = _SESSION_TOKEN;
   fetch(SCRIPT_URL, {
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -607,87 +604,71 @@ function apiPost(action, body, cb, errCb) {
     .catch(function(e){ if(errCb) errCb(e); });
 }
 
-// Shim google.script.run para fetch()
-var google = {
-  script: {
-    run: (function(){
-      function makeRunner(){
-        var _ok=null,_err=null;
-        var o = {
-          withSuccessHandler: function(fn){ _ok=fn; return o; },
-          withFailureHandler: function(fn){ _err=fn; return o; },
-          getTurnosServer: function(){ apiGet('getTurnos',{},_ok,_err); },
-          getUsuario: function(){
-            if(_SESSION_NOME){ if(_ok) _ok({email:_SESSION_EMAIL,nome:_SESSION_NOME}); return; }
-            apiGet('getUsuario',{},_ok,_err);
-          },
-          getDadosServer: function(t){ apiGet('getDados',{turno:t},_ok,_err); },
-          getDashboardServer: function(t){ apiGet('getDashboard',{turno:t},_ok,_err); },
-          salvarCheckServer: function(ri,tu,hc,ju,op){ apiPost('salvarCheck',{rowIndex:ri,turno:tu,horaCheck:hc,justif:ju||'',operador:op||''},_ok,_err); },
-          removerCheckServer: function(ri,tu){ apiPost('removerCheck',{rowIndex:ri,turno:tu},_ok,_err); },
-          salvarObsMeliServer: function(ri,tu,ob){ apiPost('salvarObsMeli',{rowIndex:ri,turno:tu,obs:ob||''},_ok,_err); },
-          registrarAutoCheckHistorico: function(ri,tu,hc){ apiPost('registrarAutoCheck',{rowIndex:ri,turno:tu,horaCheck:hc||''},function(){},function(){}); }
-        };
-        return o;
+// Shim google.script.run → fetch()
+// Pattern: google.script.run.withSuccessHandler(ok).withFailureHandler(err).fn(args)
+// Each property access on google.script.run returns a fresh chainable object
+var google = {script:{run:null}};
+Object.defineProperty(google.script, 'run', {
+  get: function(){
+    var _ok=null, _err=null;
+    var runner = {
+      withSuccessHandler: function(fn){ _ok=fn; return runner; },
+      withFailureHandler: function(fn){ _err=fn; return runner; },
+      getTurnosServer: function(){
+        apiGet('getTurnos',{},_ok,_err);
+      },
+      getUsuario: function(){
+        if(_SESSION_NOME){ if(_ok) _ok({email:_SESSION_EMAIL,nome:_SESSION_NOME}); return; }
+        if(_ok) _ok({email:'usuario@chamada',nome:'Usuario'});
+      },
+      getDadosServer: function(t){
+        apiGet('getDados',{turno:t||''},_ok,_err);
+      },
+      getDashboardServer: function(t){
+        apiGet('getDashboard',{turno:t||''},_ok,_err);
+      },
+      salvarCheckServer: function(ri,tu,hc,ju,op){
+        apiPost('salvarCheck',{rowIndex:ri,turno:tu,horaCheck:hc,justif:ju||'',operador:op||''},_ok,_err);
+      },
+      removerCheckServer: function(ri,tu){
+        apiPost('removerCheck',{rowIndex:ri,turno:tu},_ok,_err);
+      },
+      salvarObsMeliServer: function(ri,tu,ob){
+        apiPost('salvarObsMeli',{rowIndex:ri,turno:tu,obs:ob||''},_ok,_err);
+      },
+      registrarAutoCheckHistorico: function(ri,tu,hc){
+        apiPost('registrarAutoCheck',{rowIndex:ri,turno:tu,horaCheck:hc||''},function(){},function(){});
       }
-      var _r = makeRunner();
-      // Proxy para criar novo runner a cada encadeamento
-      return new Proxy({},{
-        get: function(t,prop){
-          if(prop==='withSuccessHandler'||prop==='withFailureHandler'){
-            _r = makeRunner();
-          }
-          return _r[prop] ? _r[prop].bind(_r) : undefined;
-        }
-      });
-    })()
+    };
+    return runner;
   }
-};
+});
 
-function showLoginScreen(){
-  var sp = document.getElementById('splash');
-  if(!sp) return;
-  sp.innerHTML = ''
-    + '<div style="font-size:44px">&#128666;</div>'
-    + '<div style="font-size:20px;font-weight:700;color:#333">Chamada AM</div>'
-    + '<div style="font-size:12px;color:#666;margin:6px 0 20px">Fa&#231;a login com sua conta Google autorizada</div>'
-    + '<button onclick="doGoogleLogin()" id="loginBtn" style="background:#3483FA;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer">'
-    + '&#128272; Entrar com Google</button>'
-    + '<div id="loginErr" style="margin-top:12px;font-size:11px;color:#F23D4F;display:none"></div>';
-}
-
-function doGoogleLogin(){
-  var btn=document.getElementById('loginBtn');
-  if(btn){btn.textContent='Entrando...';btn.disabled=true;}
-  apiGet('login',{},function(data){
-    _SESSION_TOKEN=data.token; _SESSION_EMAIL=data.email; _SESSION_NOME=data.nome;
-    try{
-      localStorage.setItem('chamada_token',data.token);
-      localStorage.setItem('chamada_email',data.email);
-      localStorage.setItem('chamada_nome',data.nome);
-    }catch(e){}
-    continueInit(data);
-  },function(e){
-    var err=document.getElementById('loginErr');
-    if(err){err.style.display='block';err.textContent=e.message||'Erro ao fazer login. Verifique se seu email esta autorizado.';}
-    if(btn){btn.textContent='Entrar com Google';btn.disabled=false;}
-  });
-}
 
 function checkAndLogin(cb){
   if(!SCRIPT_URL){
-    splashError({message:'Configure a SCRIPT_URL no index.html com a URL do seu Apps Script Web App.'});
+    splashError({message:'SCRIPT_URL nao configurada no index.html'});
     return;
   }
-  if(!_SESSION_TOKEN){ showLoginScreen(); return; }
-  apiGet('getUsuario',{},function(u){
-    _SESSION_NOME=u.nome; _SESSION_EMAIL=u.email;
-    cb(u);
-  },function(){
-    try{localStorage.removeItem('chamada_token');}catch(e){}
-    _SESSION_TOKEN='';
-    showLoginScreen();
-  });
+  // Sem login - acesso direto para qualquer um com o link
+  // Tenta recuperar nome salvo localmente
+  var savedNome = '';
+  var savedEmail = '';
+  try {
+    savedNome  = localStorage.getItem('chamada_nome')  || '';
+    savedEmail = localStorage.getItem('chamada_email') || '';
+  } catch(e){}
+  if(savedNome){
+    cb({nome:savedNome, email:savedEmail});
+  } else {
+    // Pede o nome na primeira vez
+    var nome = prompt('Qual o seu nome? (aparecerá no registro das chamadas)') || 'Usuario';
+    try {
+      localStorage.setItem('chamada_nome',  nome);
+      localStorage.setItem('chamada_email', nome.toLowerCase().replace(/ /g,'.')+'@chamada');
+    } catch(e){}
+    cb({nome:nome, email:nome.toLowerCase().replace(/ /g,'.')+'@chamada'});
+  }
 }
 
 
@@ -1485,7 +1466,8 @@ function startTMCCounters(){
 }
 function continueInit(u){
   USER=u;
-  console.log('[GitHub] USER:', JSON.stringify(u));
+  _SESSION_NOME = u.nome||'';
+  _SESSION_EMAIL = u.email||'';
   var dn=(u.nome&&u.nome!=='Usuario')?u.nome.split(' ')[0]:(u.email?u.email.split('@')[0]:'User');
   document.getElementById('userName').textContent=dn;
   document.getElementById('userAvatar').textContent=dn.charAt(0).toUpperCase();
@@ -4272,7 +4254,18 @@ document.addEventListener('touchstart',function(e){ptY=e.touches[0].clientY;});
 document.addEventListener('touchend',function(e){if(e.changedTouches[0].clientY-ptY>80&&window.scrollY===0) refreshData();});
 
 function splash(msg){document.getElementById('splashMsg').textContent=msg;}
-function splashError(e){document.getElementById('splashMsg').textContent='Erro: '+(e.message||e);document.querySelector('#splash .spinner').style.display='none';}
+function splashError(e){
+  var msg='Erro: '+(e.message||e);
+  document.getElementById('splashMsg').textContent=msg;
+  var sp=document.querySelector('#splash .spinner');
+  if(sp) sp.style.display='none';
+  // If SCRIPT_URL not configured, show config helper
+  if((e.message||e).indexOf('SCRIPT_URL')>=0){
+    document.getElementById('splashMsg').innerHTML='<div style="font-size:11px;color:#F23D4F;max-width:280px;line-height:1.6">'+'<strong>Configure a SCRIPT_URL:</strong><br>'
++'Abra o index.html e substitua<br><code style="background:#FFE600;padding:2px 4px;border-radius:3px">SCRIPT_URL = \'\'</code><br>'
++'pela URL do seu Apps Script Web App.</div>';
+  }
+}
 function hideSplash(){var s=document.getElementById('splash');s.classList.add('hidden');document.getElementById('app').classList.add('ready');setTimeout(function(){s.style.display='none';},500);}
 var toastTimer;
 function showToast(msg,ms){var t=document.getElementById('toast');t.innerHTML=msg;t.style.opacity=msg?'1':'0';clearTimeout(toastTimer);if(ms)toastTimer=setTimeout(function(){t.style.opacity='0';},ms);}
