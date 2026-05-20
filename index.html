@@ -2659,7 +2659,7 @@ function confirmDelay(){
     }
     renderList();
     showToast('Salvando justificativa...');
-    callServer('salvarJustifServer',{rowIndex:rowIndex,turno:TURNO,justif:justif},function(){showToast('&#9989; Justificativa salva',2000);}),function(e){showToast('&#9888; Erro: '+(e.message||e),3000);},{showToast('&#9888; Erro: '+(e.message||e),3000);}));
+    callServer('salvarJustifServer',{rowIndex:rowIndex,turno:TURNO,justif:justif},function(){showToast('✅ Justificativa salva',2000);},function(e){showToast('⚠️ Erro: '+(e.message||e),3000);});
     _justifOnly=false;
   } else {
     commitCheck(_pendingIdx,_pendingRowIndex,_pendingHora,'delay',justif);
@@ -2685,9 +2685,9 @@ function commitCheck(idx,rowIndex,hora,status,justif){
   showToast('Salvando...');
   callServer('salvarCheckServer',{rowIndex:rowIndex,turno:TURNO,hora:hora,justif:justif},function(res){
       var st=res&&res.status?res.status:status;
-      var icon=st==='on time'?'&#9989;':st==='advance'?'&#128309;':'&#9888;&#65039;';
-      showToast(icon+' '+RAW_DATA[idx][1]+' &mdash; '+st,3000);
-    }),function(e){showToast('&#9888; Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);},{showToast('&#9888; Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);}));
+      var icon=st==='on time'?'✅':st==='advance'?'🟡':'⚠️';
+      showToast(icon+' '+RAW_DATA[idx][1]+' — '+st,3000);
+    },function(e){showToast('⚠️ Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);});
 }
 
 function updateStats(){
