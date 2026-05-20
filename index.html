@@ -4,11 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <meta name="theme-color" content="#FFE600">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Chamada AM">
-<link rel="manifest" id="pwa-manifest">
 <title>Chamada AM</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -53,11 +48,11 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 .kpi-cell{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 2px 3px;border-right:1px solid var(--g2);text-align:center;gap:1px}
 .kpi-cell:last-child{border-right:none}
 .kn{font-size:14px;font-weight:700;line-height:1;color:var(--dark)}
-.kn.blue{color:var(--blue)}.kn.green{color:var(--green)}.kn.amber{color:var(--orange)}.kn.red{color:var(--red)}
+.kn.blue{color:var(--blue)}.kn.green{color:var(--green)}.kn.amber{color:var(--orange)}.kn.red{color:var(--red)}.kn.purple{color:#8B5CF6}
 .kl{font-size:7px;font-weight:600;color:var(--g3);text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
 .kb{width:86%;height:3px;background:var(--g2);border-radius:2px;overflow:hidden;margin-top:1px}
 .kbf{height:100%;border-radius:2px;transition:width .4s}
-.kbf.blue{background:var(--blue)}.kbf.orange{background:var(--orange)}
+.kbf.blue{background:var(--blue)}.kbf.orange{background:var(--orange)}.kbf.purple{background:#8B5CF6}
 .ks{font-size:7px;color:var(--g3);white-space:nowrap}
 /* ONDA CARDS */
 .onda-cards-row{display:flex;overflow-x:auto;background:#EBF1FF;border-bottom:2px solid var(--yellow);padding:5px 8px;gap:5px;scrollbar-width:none}
@@ -116,16 +111,16 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 .tipo-pill span{position:relative;z-index:1}
 /* TABLE */
 .tbl-wrap{margin:0 8px 10px;background:var(--white);border-radius:8px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.tbl-hd,.tbl-row{display:grid;grid-template-columns:34px 34px 20px 1fr 1fr 1fr 22px 50px var(--meli-col,0px);align-items:center;gap:0}
+.tbl-hd,.tbl-row{display:grid;grid-template-columns:34px 34px 20px 60px 1fr 22px 50px 38px var(--meli-col,0px);align-items:center;gap:0}
 .tbl-hd{background:#F0F4F8;border-bottom:2px solid var(--yellow);padding:3px 3px}
 .tbl-hd>span{font-size:7.5px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.3px;padding:0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tbl-hd>span:nth-child(1){text-align:center}
 .tbl-hd>span:nth-child(3){text-align:center}
 .tbl-hd>span:nth-child(7){text-align:center}
-.tbl-row{padding:0 3px;min-height:40px;border-bottom:1px solid var(--g2);cursor:pointer;transition:background .12s;position:relative}
+.tbl-row{padding:0 3px;min-height:40px;border-bottom:1px solid var(--g2);cursor:default;transition:background .12s;position:relative}
 .tbl-row:last-child{border-bottom:none}
 .tbl-row:active{background:var(--g1)}
-.tbl-row.called .c-check,.tbl-row.called .c-info,.tbl-row.called .c-mot,.tbl-row.called .c-modal,.tbl-row.called .c-hora{opacity:.45;filter:grayscale(1)}
+.tbl-row.called .c-check,.tbl-row.called .c-info,.tbl-row.called .c-mot,.tbl-row.called .c-hora{opacity:.45;filter:grayscale(1)}
 .tbl-row.urgent:not(.called){background:#FFE0C0;border-left:3px solid var(--orange)}
 .tbl-row.urgent:not(.called) .c-onda{background:var(--orange)!important;border-right-color:#cc5500}
 .tbl-row.urgent:not(.called) .onda-n,.tbl-row.urgent:not(.called) .onda-e{color:#fff!important}
@@ -150,9 +145,6 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 .c-onda.st-delay{background:var(--dl-bg)}
 .onda-n{font-size:7.5px;font-weight:700;color:var(--dark);white-space:nowrap}
 .onda-e{font-size:5.5px;color:var(--g3);white-space:nowrap;margin-top:0}
-@keyframes blink-warn{0%,100%{opacity:1}50%{opacity:0}}
-.warn-blink{animation:blink-warn .7s step-start infinite;color:#F23D4F!important;font-weight:900!important;display:inline-block}
-.chkbox.locked{background:var(--blue);border-color:var(--blue);color:#fff;cursor:not-allowed;opacity:.75}
 @keyframes pulse-alert{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.3)}}
 .alert-pulse{display:inline-block;animation:pulse-alert 1s ease-in-out infinite;font-size:9px}
 .tbl-row.called .alert-pulse{display:none}
@@ -160,9 +152,9 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 .countdown.ok{background:#E8F8EF;color:var(--green)}
 .countdown.warn{background:#FFE8D6;color:var(--orange);font-weight:800}
 .countdown.late{background:#FFE8E8;color:var(--red)}
-.c-vaga{text-align:center;border-left:1px solid var(--g2);border-right:1px solid var(--g2);padding:6px 2px}
-.vaga-n{font-size:14px;font-weight:700;color:var(--blue);line-height:1}
-.vaga-l{font-size:8px;color:var(--g3);text-transform:uppercase;letter-spacing:.2px}
+.c-check{cursor:pointer}.c-vaga{text-align:center;border-left:1px solid var(--g2);border-right:1px solid var(--g2);padding:6px 2px}
+.vaga-n{font-size:11px;font-weight:700;color:var(--blue);line-height:1}
+.vaga-l{font-size:6px;color:var(--g3);text-transform:uppercase;letter-spacing:.2px}
 .c-info{padding:6px 4px;min-width:0}
 .i-r1{display:flex;align-items:center;gap:3px;margin-bottom:2px;flex-wrap:wrap}
 .rota-cd{font-size:11px;font-weight:700;color:var(--dark)}
@@ -191,9 +183,13 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
 .c-tmc{text-align:center;border-left:1px solid var(--g2);padding:3px 1px;min-width:48px}
 .tmc-in{font-size:7px;color:var(--g3);display:block;white-space:nowrap;line-height:1.3}
 .tmc-timer{font-size:9px;font-weight:700;color:var(--blue);display:block;font-variant-numeric:tabular-nums}
+.tmc-done{font-size:9px;font-weight:700;color:var(--green);display:block}
+@keyframes blink-warn{0%,100%{opacity:1}50%{opacity:0}}
+.warn-blink{animation:blink-warn .7s step-start infinite;color:#F23D4F!important;font-weight:900!important;display:inline-block}
 .tmc-timer.tmc-warn{color:var(--orange)!important;animation:blink-warn .7s step-start infinite}
 .tmc-timer.tmc-over{color:var(--red)!important;background:#FFE0E0;border-radius:4px;padding:1px 4px;animation:none!important}
-.tmc-done{font-size:9px;font-weight:700;color:var(--green);display:block}
+.tmc-done.tmc-done-over{color:var(--red)!important;background:#FFE0E0;border-radius:4px;padding:1px 4px}
+.chkbox.locked{background:var(--blue);border-color:var(--blue);color:#fff;cursor:not-allowed;opacity:.75}
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:#F0F4F8;z-index:500;display:none;flex-direction:column;overflow-y:auto}
 .modal-overlay.open{display:flex}
@@ -264,7 +260,8 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
   .tbl-hd>span:nth-child(7){display:none}
   .tbl-row{min-height:22px!important;break-inside:avoid;border-bottom:1px solid #ccc!important}
   .c-hora{display:none!important}
-  .tbl-hd,.tbl-row{grid-template-columns:30px 58px 26px 1fr 1fr 1fr!important}
+  .c-obs{display:none!important}
+  .tbl-hd,.tbl-row{grid-template-columns:30px 58px 26px 1fr 1fr!important}
   .tbl-row.called{opacity:1!important;background:#f0f0f0!important}
   .tbl-row.called .c-check,.tbl-row.called .c-info,.tbl-row.called .c-mot,.tbl-row.called .c-modal{opacity:.6!important;filter:none!important}
   .c-onda.st-ontime{background:#d4edda!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -283,21 +280,21 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
   .kpi-row .kpi-cell{padding:6px 8px}
   .kn{font-size:16px}
   .tbl-wrap{margin:0 0 12px;border-radius:10px}
-  .tbl-hd,.tbl-row{grid-template-columns:44px 54px 26px 1fr 1fr 1.1fr 32px 56px var(--meli-col,0px)}
+  .tbl-hd,.tbl-row{grid-template-columns:44px 54px 26px 110px minmax(144px,1fr) 62px 70px 70px var(--meli-col,0px)}
   .rota-cd{font-size:13px}
   .tbl-hd>span{font-size:8.5px}
-  .onda-n{font-size:12px}
-  .onda-e{font-size:9px}
-  .vaga-n{font-size:16px}
-  .hora-t{font-size:11px}
+  .onda-n{font-size:11px}
+  .onda-e{font-size:8.5px}
+  .vaga-n{font-size:13px}
+  .hora-t{font-size:10px}
   .hora-dash{font-size:14px}
   .tmc-timer,.tmc-done{font-size:10px}
   .tmc-in{font-size:8px}
   .tbl-row{padding:0 5px;min-height:44px}
-  .c-hora{padding:4px 2px}
+  .c-hora{padding:4px 2px;overflow:visible}
   .c-tmc{padding:4px 2px;min-width:56px}
   .onda-n{font-size:12px}
-  .vaga-n{font-size:18px}
+  .vaga-n{font-size:14px}
   .tipo-lbl{font-size:14px}
   .tipo-hdr{padding:12px 12px 5px}
   .onda-cards-row{padding:5px 10px;gap:8px}
@@ -314,6 +311,14 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
   .app,.sticky{padding:0 40px}
   .modal-box{max-width:1100px!important}
   .detail-box{max-width:1200px!important}
+  .tbl-hd,.tbl-row{grid-template-columns:44px 60px 30px 120px minmax(144px,1fr) 70px 82px 70px var(--meli-col,0px)}
+  .c-mot{min-width:0}
+  .rota-cd{font-size:14px}
+  .mot-tag{font-size:11px}
+  .onda-n{font-size:13px}
+  .vaga-n{font-size:15px}
+  .hora-t{font-size:11px}
+  .tmc-timer,.tmc-done{font-size:11px}
 }
 </style>
 </head>
@@ -346,7 +351,7 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
     <div class="prog-wrap"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
 
     <!-- KPI ROW — estilo dashboard compacto -->
-    <div style="background:#fff;border-bottom:1px solid #E8E8E8;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr">
+    <div style="background:#fff;border-bottom:1px solid #E8E8E8;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr">
 
       <!-- Expedido -->
       <div class="kpi-cell" style="cursor:pointer;background:linear-gradient(180deg,#fff 60%,#EBF1FF 100%)" onclick="setFilter('TODOS')">
@@ -354,35 +359,23 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
         <div class="kl">Expedido</div>
         <div class="ks" id="kCicloNome" style="color:var(--blue);font-weight:700;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90%"></div>
         <div class="kb"><div class="kbf blue" id="kBar" style="width:0%"></div></div>
+        <div id="kChamadosInfo" style="font-size:11px;color:var(--g3);margin-top:2px;cursor:pointer;user-select:none" onclick="filterByPending()"><span id="kCalled" style="color:var(--green);font-weight:700;pointer-events:none">0</span><span style="pointer-events:none">/<span id="kTotal">0</span> &middot; </span><span id="kPending" style="color:var(--orange);font-weight:800;pointer-events:none">0</span><span style="color:var(--orange);font-weight:700;text-decoration:underline;pointer-events:none"> Pendentes</span></div>
       </div>
 
-      <!-- Delay -->
+      <!-- OOT -->
       <div class="kpi-cell" style="cursor:pointer;background:linear-gradient(180deg,#fff 60%,#FFE8E8 100%)" onclick="filterByDelay()">
-        <div class="kn red" id="kDelay">0</div>
-        <div class="kl" style="color:var(--red)">Delay do Total</div>
-        <div class="ks"><span id="kDelayJ">0</span> justif.</div>
+        <div class="kn red" id="kDelayPct">0%</div>
+        <div class="kl" style="color:var(--red)">OOT</div>
         <div class="kb"><div class="kbf" id="kDelayBar" style="width:0%;background:var(--red)"></div></div>
-      </div>
-
-      <!-- Chamados -->
-      <div class="kpi-cell" onclick="filterByPending()" style="cursor:pointer">
-        <div style="display:flex;align-items:baseline;gap:3px;justify-content:center">
-          <div class="kn green" id="kCalled">0</div>
-          <div style="font-size:10px;color:var(--g3);font-weight:600">/</div>
-          <div class="kn" id="kTotal">0</div>
+        <div style="font-size:7px;color:var(--g3);margin-top:1px">
+          <span id="kDelay" style="color:var(--red);font-weight:700">0</span> delays
+          &middot; <span id="kDelayJ">0</span> justif.
         </div>
-        <div class="kl">Chamados</div>
-        <div style="font-size:10px;font-weight:700;color:var(--orange);margin-top:1px"><span id="kPending">0</span> pendentes</div>
       </div>
 
-      <!-- Onda vigente -->
-      <div class="kpi-cell" style="cursor:pointer" onclick="filterByOndaVigente()" id="kOndaCell">
-        <div class="kn" id="kOndaN" style="font-size:11px">—</div>
-        <div class="kl">Onda Vigente</div>
-        <div class="ks" id="kOndaPend">&#8212;</div>
-        <div id="kOndaPerdida" style="display:none;font-size:8px;font-weight:700;color:#F23D4F;cursor:pointer;margin-top:1px" onclick="event.stopPropagation();filterByOndaPerdida()"></div>
-      </div>
 
+
+      
       <!-- Volumosos -->
       <div class="kpi-cell" style="cursor:pointer" onclick="filterByTipo('vol')">
         <div class="kn amber" id="kVolPct">0%</div>
@@ -397,6 +390,15 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
         <div class="kl">&#128236; Leves</div>
         <div class="kb"><div class="kbf blue" id="kLevBar" style="width:0%"></div></div>
         <div class="ks" id="kLevCount">0/0</div>
+      </div>
+
+      <!-- TMC card -->
+      <div class="kpi-cell" style="cursor:pointer;background:linear-gradient(180deg,#fff 60%,#F5F0FF 100%)" onclick="filterByTMCAlert()" id="kTmcCell">
+        <div class="kn purple" id="kTmcAlert">0</div>
+        <div class="kl" style="color:#8B5CF6">&#9201; TMC</div>
+        <div class="kb"><div class="kbf purple" id="kTmcBar" style="width:0%"></div></div>
+        <div class="ks" id="kTmcPct" style="color:#8B5CF6;font-weight:700">0% &le;30min</div>
+        <div id="kTmcPerdido" style="display:none;font-size:7px;font-weight:700;color:#F23D4F;cursor:pointer;margin-top:2px;text-decoration:underline" onclick="event.stopPropagation();filterByTMCLost()"></div>
       </div>
 
     </div>
@@ -442,8 +444,11 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
       <button class="justif-opt" onclick="selectJustif(this,'Erro no app')">&#128241; Erro no app</button>
       <button class="justif-opt" onclick="selectJustif(this,'Atraso Operação')">&#9201; Atraso Opera&ccedil;&atilde;o</button>
       <button class="justif-opt" onclick="selectJustif(this,'Atraso Line Haul')">&#128650; Atraso Line Haul</button>
+      <button class="justif-opt" onclick="selectJustif(this,'Procura de pacote')">&#128269; Procura de pacote</button>
+      <button class="justif-opt" onclick="selectJustif(this,'Vaga ocupada')">&#128663; Vaga ocupada</button>
     </div>
-    <textarea class="delay-input" id="delayInput" rows="2" placeholder="Observação adicional (opcional)..."></textarea>
+    <div style="font-size:11px;font-weight:600;color:var(--g4);margin-bottom:4px">Observação adicional (opcional)</div>
+    <textarea class="delay-input" id="delayInput" rows="2" placeholder="Descreva aqui..."></textarea>
     <div id="delayJustifError" style="display:none;font-size:11px;color:#F23D4F;font-weight:600;margin-bottom:8px">&#9888; Selecione ou descreva um motivo para continuar.</div>
     <div class="delay-btns">
       <button class="delay-btn" onclick="cancelDelay()">Cancelar</button>
@@ -555,80 +560,72 @@ body{background:var(--bg);font-family:'Inter',system-ui,sans-serif;min-height:10
     </div>
   </div>
 </div>
+
+<!-- TMC PERDIDAS OVERLAY -->
+<div class="detail-overlay" id="tmcLostOverlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="detail-box">
+    <div class="detail-drag"></div>
+    <div class="detail-title">
+      <span>&#9201; TMC Perdido (&gt;30min)</span>
+      <button class="detail-close" onclick="document.getElementById('tmcLostOverlay').classList.remove('open')">&#10005;</button>
+    </div>
+    <div class="detail-sub" id="tmcLostSub"></div>
+    <div class="detail-pills" id="tmcLostPills"></div>
+    <table class="detail-tbl" style="width:100%;min-width:860px"><thead id="tmcLostHead"></thead><tbody id="tmcLostBody"></tbody></table>
+  </div>
+</div>
+
+<!-- OBS LOCAL OVERLAY -->
+<div class="delay-overlay" id="obsLocalOverlay">
+  <div class="delay-box" style="max-width:380px">
+    <div class="delay-title" style="color:#B45309">&#128221; Observa&ccedil;&atilde;o da Rota</div>
+    <div class="delay-sub" id="obsLocalSub" style="margin-bottom:10px"></div>
+    <textarea class="delay-input" id="obsLocalInput" rows="4" placeholder="Digite sua observa&#231;&#227;o sobre esta rota..."></textarea>
+    <div class="delay-btns">
+      <button class="delay-btn" onclick="cancelObsLocal()">Cancelar</button>
+      <button class="delay-btn" style="background:#B45309;border-color:#B45309;color:#fff;font-weight:700" onclick="confirmObsLocal()">&#128190; Salvar</button>
+    </div>
+  </div>
+</div>
 <div id="toast"></div>
 <script>
-// ══════════════════════════════════════════════════════════
-// GITHUB PAGES MODE
-// ══════════════════════════════════════════════════════════
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyMMD1AfsSdS5Bjdi2jUb0y8QJG0OV54-vrRYXMQRfldXjrSoB8e9An3CAVEDiKPPVPdA/exec';
-
-var _SESSION_NOME  = '';
-var _SESSION_EMAIL = '';
-try {
-  _SESSION_NOME  = localStorage.getItem('chamada_nome')  || '';
-  _SESSION_EMAIL = localStorage.getItem('chamada_email') || '';
-} catch(e){}
-
-function apiGet(action, params, cb, errCb) {
-  var url = SCRIPT_URL + '?action=' + action;
-  if(params) Object.keys(params).forEach(function(k){ url += '&' + k + '=' + encodeURIComponent(params[k]||''); });
-  fetch(url)
-    .then(function(r){ return r.json(); })
-    .then(function(res){ if(!res.ok){ if(errCb) errCb({message:res.error}); return; } if(cb) cb(res.data); })
-    .catch(function(e){ if(errCb) errCb(e); });
-}
-
-function apiPost(action, body, cb, errCb) {
-  body.action = action;
-  fetch(SCRIPT_URL, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(body)
-  })
-    .then(function(r){ return r.json(); })
-    .then(function(res){ if(!res.ok){ if(errCb) errCb({message:res.error}); return; } if(cb) cb(res.data); })
-    .catch(function(e){ if(errCb) errCb(e); });
-}
-
-// google.script.run shim - retorna novo runner a cada acesso
-var google = {script:{run:null}};
-Object.defineProperty(google.script, 'run', {
-  get: function(){
-    var _ok=null, _err=null;
-    var r = {
-      withSuccessHandler: function(fn){ _ok=fn; return r; },
-      withFailureHandler: function(fn){ _err=fn; return r; },
-      getTurnosServer:    function()   { apiGet('getTurnos',{},_ok,_err); },
-      getUsuario:         function()   { if(_SESSION_NOME){ if(_ok) _ok({email:_SESSION_EMAIL,nome:_SESSION_NOME}); return; } if(_ok) _ok({email:'',nome:'Usuario'}); },
-      getDadosServer:     function(t)  { apiGet('getDados',{turno:t||''},_ok,_err); },
-      getDashboardServer: function(t)  { apiGet('getDashboard',{turno:t||''},_ok,_err); },
-      salvarCheckServer:  function(ri,tu,hc,ju,op){ apiPost('salvarCheck',{rowIndex:ri,turno:tu,horaCheck:hc,justif:ju||'',operador:op||_SESSION_NOME||''},_ok,_err); },
-      removerCheckServer: function(ri,tu){ apiPost('removerCheck',{rowIndex:ri,turno:tu},_ok,_err); },
-      salvarObsMeliServer:function(ri,tu,ob){ apiPost('salvarObsMeli',{rowIndex:ri,turno:tu,obs:ob||''},_ok,_err); },
-      registrarAutoCheckHistorico: function(ri,tu,hc){ apiPost('registrarAutoCheck',{rowIndex:ri,turno:tu,horaCheck:hc||''},function(){},function(){}); }
-    };
-    return r;
-  }
-});
-
-// Pede nome na primeira visita
-function pedirNome(){
-  var nome = '';
-  while(!nome || nome.length < 2){
-    nome = (prompt('Bem-vindo ao Chamada AM!\n\nDigite seu nome para continuar:') || '').trim();
-  }
-  try{
-    localStorage.setItem('chamada_nome', nome);
-    localStorage.setItem('chamada_email', nome.toLowerCase().replace(/\s+/g,'.')+'@chamada');
-  }catch(e){}
-  _SESSION_NOME  = nome;
-  _SESSION_EMAIL = nome.toLowerCase().replace(/\s+/g,'.')+'@chamada';
-  return nome;
-}
-
-
 var RAW_DATA=[],S={},TURNO='',USER={email:'',nome:''};
+
+// ═══════════════════════════════════════════════════════════════
+// CONFIGURAÇÃO — substitua pela URL do seu Apps Script deploy
+// ═══════════════════════════════════════════════════════════════
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxaySg-6IOSqowGhmY-l7be4ghcTHGByL6S9JYccIwZGgR6kTbW4toMLkaEpSd8F6GMiQ/exec';
+
+// ── API helper: chama o Apps Script via fetch ─────────────────
+function callServer(fn, params, onSuccess, onFailure) {
+  var qs = Object.keys(params||{}).map(function(k){
+    var v = params[k];
+    return encodeURIComponent(k)+'='+encodeURIComponent(v===null||v===undefined?'':v);
+  }).join('&');
+  var url = APPS_SCRIPT_URL + '?fn=' + encodeURIComponent(fn) + (qs?'&'+qs:'');
+  fetch(url, {
+    method: 'GET',
+    redirect: 'follow',
+    mode: 'cors',
+    credentials: 'omit'
+  })
+    .then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(data){
+      if(data && data.error) { if(onFailure) onFailure({message:data.error}); }
+      else { if(onSuccess) onSuccess(data.result!==undefined?data.result:data); }
+    })
+    .catch(function(e){
+      console.error('[callServer] '+fn+' ERRO:', e);
+      if(onFailure) onFailure(e);
+    });
+}
+// ══════════════════════════════════════════════════════════════
+
 var pollingTimer=null,countdownTimer=null,_dashData=null;
+var OBS_LOCAL={};
 
 // ── Emails autorizados Meli ────────────────────────────────
 var MELI_EMAILS=[
@@ -688,11 +685,6 @@ function minutesUntilEnd(eta){
   return toMins(end)-toMins(nowHStr());
 }
 
-function hasSheetCheckin(i){
-  var r=RAW_DATA[i];if(!r)return false;
-  var v=r[14];
-  return !!(v&&typeof v==='string'&&v.indexOf(':')>=0&&v!=='00:00:00');
-}
 function isCalled(i){return !!(S[i]&&S[i].called);}
 function getHora(i){return S[i]&&S[i].time||null;}
 function getStatus(i){return S[i]&&S[i].status||'';}
@@ -714,8 +706,17 @@ function loadSFromData(merge){
       S[i]={called:true,time:h,status:r[10]||'',justif:r[11]||''};
     }
     if(!S[i]&&hasSheetCheckin(i)){
-      var prev_fs=merge&&prev[i]&&prev[i].fromSheet;
-      S[i]={called:true,time:r[14],status:r[10]||'on time',justif:r[11]||'',fromSheet:true};
+      var wasFrm=merge&&prev[i]&&prev[i].fromSheet;
+      var hadCheckout=prev[i]&&prev[i].checkout;
+      var nowCheckout=r[15]&&r[15].toString().trim()&&r[15].indexOf(':')>=0?r[15]:'';
+      S[i]={called:true,time:r[14],status:r[10]||'on time',justif:r[11]||'',fromSheet:true,checkout:nowCheckout};
+      if(!wasFrm&&r[12]&&typeof google!=='undefined'&&google.script){
+        callServer('registrarAutoCheckHistorico',{rowIndex:r[12],turno:TURNO,horaCheck:r[14]},null,null);
+      }
+      // When checkout arrives for the first time, compute W and X on sheet
+      if(nowCheckout&&nowCheckout!==hadCheckout&&r[12]&&typeof google!=='undefined'&&google.script){
+        callServer('atualizarTMCStats',{rowIndex:r[12],turno:TURNO},null,null);
+      }
     }
   });
 }
@@ -1379,11 +1380,506 @@ function tlModeToggle(){tlSetMode(window._tlMode==='qty'?'pct':'qty');}
 function tlTranspToggle(){tlToggleView();}
 
 
-function fmtHS(t){if(!t)return '';var s=t.toString().trim();return s.length>=5?s.substring(0,5):s;}
+// ── TMC helpers ───────────────────────────────────────────
+// TMC para rotas ATIVAS (sem checkout) — usado no cronômetro e card
+function getTMCMins(r){
+  var cin=r[14];
+  if(!cin||typeof cin!=='string'||cin.indexOf(':')<0||cin==='00:00:00') return null;
+  var cout=r[15]&&r[15].toString().trim()&&r[15].toString().indexOf(':')>=0?r[15].toString().trim():'';
+  if(cout) return null; // completed routes handled separately
+  function toS(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+  var now=new Date();
+  var ns=now.getHours()*3600+now.getMinutes()*60+now.getSeconds();
+  var d=ns-toS(cin);
+  if(d<0) d+=86400;
+  return Math.floor(d/60);
+}
+// TMC FINAL para rotas concluídas (com checkout) — usado no card perdidos
+function getTMCMinsFinal(r){
+  var cin=r[14];
+  if(!cin||typeof cin!=='string'||cin.indexOf(':')<0||cin==='00:00:00') return null;
+  var cout=r[15]&&r[15].toString().trim()&&r[15].toString().indexOf(':')>=0?r[15].toString().trim():'';
+  if(!cout) return null;
+  function toS(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+  var d=toS(cout)-toS(cin);
+  if(d<0) d+=86400;
+  return Math.floor(d/60);
+}
+
+function updateTMCCard(){
+  // alert20: active routes (no checkout) with live TMC 20-30min (warning zone)
+  // over30Final: completed routes (has checkout) with final TMC > 30min (lost)
+  // totalCin: all routes that have checkin (active + completed)
+  // okTMC: routes with checkin and TMC <= 30min
+  var alert20=0,over30Final=0,totalCin=0,okTMC=0;
+  RAW_DATA.forEach(function(r){
+    var cin=r[14];
+    if(!cin||typeof cin!=='string'||cin.indexOf(':')<0||cin==='00:00:00') return;
+    totalCin++;
+    var cout=r[15]&&r[15].toString().trim()&&r[15].toString().indexOf(':')>=0?r[15].toString().trim():'';
+    if(cout){
+      // Completed: use final TMC
+      function toS2(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+      var d=toS2(cout)-toS2(cin);if(d<0)d+=86400;
+      var minsF=Math.floor(d/60);
+      if(minsF>30) over30Final++;
+      else okTMC++;
+    } else {
+      // Active: use live timer
+      function toS3(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+      var now=new Date(),ns=now.getHours()*3600+now.getMinutes()*60+now.getSeconds();
+      var d2=ns-toS3(cin);if(d2<0)d2+=86400;
+      var minsA=Math.floor(d2/60);
+      if(minsA>=20&&minsA<=30) alert20++;
+      if(minsA<=30) okTMC++;
+      // minsA > 30 active: not lost yet (no checkout) - not counted as ok or lost
+    }
+  });
+  var el=document.getElementById('kTmcAlert');
+  var barEl=document.getElementById('kTmcBar');
+  var pctEl=document.getElementById('kTmcPct');
+  var perdEl=document.getElementById('kTmcPerdido');
+  var cell=document.getElementById('kTmcCell');
+  if(!el) return;
+  // Big number: % of routes with TMC OK (<=30min) among all with checkin
+  var pctOK=totalCin?Math.round(okTMC/totalCin*100):0;
+  el.textContent=pctOK+'%';
+  if(barEl) barEl.style.width=pctOK+'%';
+  // Middle text: active warning routes (20-30min)
+  if(pctEl){
+    if(alert20>0) pctEl.textContent=alert20+' em alerta (20-30min)';
+    else if(over30Final>0) pctEl.textContent=over30Final+' TMC perdidos';
+    else pctEl.textContent='todos ≤30min';
+  }
+  // Red link: completed lost routes
+  if(perdEl){
+    if(over30Final>0){perdEl.style.display='block';perdEl.textContent='⚠ '+over30Final+' TMC>30min → ver rotas';}
+    else perdEl.style.display='none';
+  }
+  if(cell){
+    if(over30Final>0) cell.style.background='linear-gradient(180deg,#fff 60%,#FFE8E8 100%)';
+    else if(alert20>0) cell.style.background='linear-gradient(180deg,#fff 60%,#FFF0E0 100%)';
+    else cell.style.background='linear-gradient(180deg,#fff 60%,#F5F0FF 100%)';
+  }
+  el.style.color=(over30Final>0)?'#F23D4F':(alert20>0)?'#FF7733':'#8B5CF6';
+}
+
+function filterByTMCAlert(){
+  activeFilter='__TMC_ALERT__';_urgentIdxs=[];
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});
+  renderList();
+}
+
+function filterByTMCLost(){
+  activeFilter='__TMC_LOST__';_urgentIdxs=[];
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});
+  renderList();
+  showTMCLostOverlay();
+}
+
+var _tmcSelected={};   // {transp: true/false}
+var _tmcLostData=[];
+
+function calcTMCStats(lostData, totalRoutes, selectedTransps){
+  // Per-transp stats from lostData (already filtered to >30min completed)
+  var stats={};
+  lostData.forEach(function(x){
+    var t=TFIRST(x.r[2])||'?';
+    if(!stats[t]) stats[t]={lost:0};
+    stats[t].lost++;
+  });
+  // Add total routes per transp from RAW_DATA
+  RAW_DATA.forEach(function(r){
+    var t=TFIRST(r[2])||'?';
+    if(!stats[t]) stats[t]={lost:0};
+    if(!stats[t].total) stats[t].total=0;
+    stats[t].total++;
+  });
+  return stats;
+}
+
+function getFilteredLost(){
+  var sel=Object.keys(_tmcSelected).filter(function(t){return _tmcSelected[t];});
+  if(!sel.length) return _tmcLostData; // none selected = show all
+  return _tmcLostData.filter(function(x){
+    return _tmcSelected[TFIRST(x.r[2])];
+  });
+}
+
+function renderTMCLostTable(filtered){
+  function pad2(n){return n<10?'0'+n:String(n);}
+  function toS(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+
+  // Ordenar por onda DECRESCENTE (Onda 6 → Onda 1)
+  var sorted = filtered.slice().sort(function(a,b){
+    var on=function(x){return parseInt((x.r[0]||'').replace('Onda ','')||0);};
+    return on(b)-on(a);
+  });
+
+  var body = sorted.map(function(x){
+    var r    = x.r;
+    var col  = x.mins > 60 ? '#F23D4F' : x.mins > 45 ? '#FF7733' : '#B45309';
+    var h    = Math.floor(x.mins/60), m = x.mins%60, s2 = x.minsSec%60;
+    var tmcStr  = (h>0?h+'h ':'')+pad2(m)+'m'+pad2(s2)+'s';
+    var cout = r[15] && r[15].toString().trim() && r[15].toString().indexOf(':')>=0 ? fmtHS(r[15].toString()) : '—';
+
+    var overSec = x.minsSec - 1800;
+    var om = Math.floor(overSec/60), os2 = overSec%60;
+    var overStr = overSec > 0 ? pad2(om)+'m'+pad2(os2)+'s' : '—';
+
+    // Status real da rota (on time / advance / delay)
+    var routeStatus = r[10] || '';
+    var statusLabel, statusColor;
+    if(routeStatus==='delay'){statusLabel='Delay';statusColor='#F23D4F';}
+    else if(routeStatus==='advance'){statusLabel='Antecipado';statusColor='#3483FA';}
+    else if(routeStatus==='on time'){statusLabel='On Time';statusColor='#00A650';}
+    else{statusLabel='—';statusColor='#aaa';}
+    var statusCell='<span style="font-size:9px;font-weight:700;color:'+statusColor+';white-space:nowrap">'+statusLabel+'</span>';
+
+    // Rotas impactadas na mesma VAGA (checkin após checkout desta e TMC > 30min)
+    var coutSec = cout !== '—' ? toS(r[15].toString()) : 0;
+    var impactadas = coutSec ? getRotasImpactadasVaga(r, coutSec) : [];
+    var impCell;
+    if (!impactadas.length) {
+      impCell = '<span style="color:#ccc;font-size:9px">—</span>';
+    } else {
+      impCell = impactadas.map(function(imp){
+        var justifHtml = imp.justif
+          ? '<span style="display:block;font-size:7px;color:#B45309;font-weight:400;font-style:italic;white-space:normal;max-width:140px;line-height:1.2;margin-top:1px">'+imp.justif+'</span>'
+          : '';
+        return '<span style="display:inline-block;background:#FFE8E8;border:1px solid #F23D4F;border-radius:4px;padding:2px 5px;font-size:8px;font-weight:700;color:#F23D4F;margin:1px;white-space:nowrap;vertical-align:top">'
+          + imp.rota
+          + ' <span style="color:#3483FA;font-weight:600">'+imp.onda.replace('Onda ','O')+'</span>'
+          + ' <span style="color:#888;font-weight:400">('+imp.tmc+'min)</span>'
+          + justifHtml
+          + '</span>';
+      }).join(' ');
+    }
+
+    return '<tr>'
+      + '<td style="font-weight:700;white-space:nowrap">' + r[1] + '</td>'
+      + '<td style="font-size:10px;color:var(--g3)">' + r[0] + '</td>'
+      + '<td style="font-size:10px">' + TFIRST(r[2]) + '</td>'
+      + '<td>' + statusCell + '</td>'
+      + '<td style="font-weight:600;color:var(--blue)">' + fmtHS(r[14]) + '</td>'
+      + '<td style="font-weight:600;color:var(--g4)">' + cout + '</td>'
+      + '<td style="font-weight:800;color:' + col + '">' + tmcStr + '</td>'
+      + '<td style="font-weight:700;color:#F23D4F">' + overStr + '</td>'
+      + '<td style="font-size:10px;color:var(--g4)">' + (r[8]||'&mdash;') + '</td>'
+      + '<td style="max-width:180px">' + impCell + '</td>'
+      + '</tr>';
+  }).join('');
+
+  document.getElementById('tmcLostBody').innerHTML = body
+    || '<tr><td colspan="10" style="text-align:center;color:var(--g3);padding:16px">Nenhuma rota</td></tr>';
+}
+
+
+// Rotas impactadas na mesma VAGA (mesmo tipo: Vol ou Lev), ondas POSTERIORES,
+// com TMC > 30min E sem recuperação entre ondas (se uma onda intermediária
+// carregou rápido ≤30min, ela "zerou" o impacto nas ondas seguintes)
+function getRotasImpactadasVaga(thisRow, coutSec){
+  var impactadas=[];
+  if(!coutSec) return impactadas;
+  var vagaKey = thisRow[7];   // col 7 = vaga (número)
+  var tipoKey = thisRow[5];   // col 5 = tipoM ('1 Volumosos' ou '2 Leves')
+  var ondaNum = parseInt((thisRow[0]||'').replace('Onda ','')||0);
+  if(!vagaKey) return impactadas;
+  function toS(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+
+  // Coletar todas as rotas da mesma vaga+tipo em ondas posteriores, ordenadas por onda
+  var rotasPosteriores=[];
+  RAW_DATA.forEach(function(r){
+    if(r[1]===thisRow[1]) return;
+    if(r[7]!==vagaKey) return;
+    if(r[5]!==tipoKey) return;
+    var rOndaNum=parseInt((r[0]||'').replace('Onda ','')||0);
+    if(rOndaNum<=ondaNum) return; // só ondas posteriores
+    var cin=r[14];
+    if(!cin||cin.indexOf(':')<0||cin==='00:00:00') return;
+    var cinSec=toS(cin);
+    if(cinSec<coutSec) return; // checkin antes do checkout desta rota
+    var cout=r[15];
+    var tmc=null, justif='';
+    if(cout&&cout.toString().indexOf(':')>=0){
+      var d=toS(cout.toString())-cinSec;
+      if(d<0) d+=86400;
+      tmc=Math.floor(d/60);
+    }
+    // Pegar justificativa: col 11 do RAW_DATA
+    justif = (r[11]||'').toString().trim();
+    rotasPosteriores.push({
+      rota:r[1], onda:r[0], ondaNum:rOndaNum,
+      transp:TFIRST(r[2]), tmc:tmc, cinSec:cinSec, justif:justif
+    });
+  });
+
+  // Ordenar por onda crescente
+  rotasPosteriores.sort(function(a,b){return a.ondaNum-b.ondaNum;});
+
+  // Percorrer em ordem: se encontrar uma rota com TMC ≤ 30min (recuperação),
+  // PARA — ondas seguintes não foram impactadas por esta rota
+  for(var i=0;i<rotasPosteriores.length;i++){
+    var rp=rotasPosteriores[i];
+    if(rp.tmc===null){
+      // Sem checkout ainda — não sabemos o resultado, incluir como possível impacto
+      impactadas.push({rota:rp.rota,onda:rp.onda,transp:rp.transp,tmc:'?',justif:rp.justif});
+    } else if(rp.tmc>30){
+      // TMC perdido — rota impactada, continuar verificando próximas
+      impactadas.push({rota:rp.rota,onda:rp.onda,transp:rp.transp,tmc:rp.tmc,justif:rp.justif});
+    } else {
+      // TMC ≤ 30min — essa vaga foi "recuperada", parar aqui
+      break;
+    }
+  }
+
+  return impactadas;
+}
+
+function renderTMCRankingBlock(filtered, totalRoutes){
+  // totalRoutes aqui = total de rotas do filtro ativo (não RAW_DATA inteiro)
+  var stats = {};
+  
+  // Conta perdidas por transp (só do filtered)
+  filtered.forEach(function(x){
+    var t = TFIRST(x.r[2]) || '?';
+    if (!stats[t]) stats[t] = {lost:0, totalTransp:0};
+    stats[t].lost++;
+  });
+  
+  // Total de rotas da transp no ciclo (base real, não filtrada)
+  RAW_DATA.forEach(function(r){
+    var t = TFIRST(r[2]) || '?';
+    if (!stats[t]) return; // só transps presentes no filtered
+    stats[t].totalTransp++;
+  });
+
+  var ranking = Object.keys(stats)
+    .map(function(t){
+      var d = stats[t];
+      // % próprio = perdidas / total de rotas desta transp no ciclo
+      var lostPct    = d.totalTransp ? Math.round(d.lost / d.totalTransp * 100) : 0;
+      // Impacto geral = perdidas / total de rotas do FILTRO ATIVO
+      var impactPct  = totalRoutes   ? Math.round(d.lost / totalRoutes  * 100) : 0;
+      return {t:t, lost:d.lost, totalTransp:d.totalTransp, lostPct:lostPct, impactPct:impactPct};
+    })
+    .sort(function(a,b){ return b.lost - a.lost || b.lostPct - a.lostPct; });
+
+  if (!ranking.length) return '';
+
+  var medals = ['🥇','🥈','🥉'];
+  var html = '<div style="margin:10px 0 14px">'
+    + '<div style="font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Top Ofensores — Impacto no Ciclo</div>'
+    + '<table style="width:100%;border-collapse:collapse;font-size:11px">'
+    + '<thead><tr style="background:#F0F4F8;border-bottom:2px solid var(--yellow)">'
+    + '<th style="padding:5px 7px;text-align:left;color:var(--blue);font-size:9px;text-transform:uppercase">Rank</th>'
+    + '<th style="padding:5px 7px;text-align:left;color:var(--blue);font-size:9px;text-transform:uppercase">Transportadora</th>'
+    + '<th style="padding:5px 7px;text-align:center;color:var(--blue);font-size:9px;text-transform:uppercase">Perdidas / Total</th>'
+    + '<th style="padding:5px 7px;text-align:center;color:var(--blue);font-size:9px;text-transform:uppercase">Impacto Próprio</th>'
+    + '<th style="padding:5px 7px;text-align:center;color:var(--blue);font-size:9px;text-transform:uppercase">Impacto Geral</th>'
+    + '</tr></thead><tbody>';
+
+  ranking.forEach(function(x,i){
+    var medal  = medals[i] || '#'+(i+1);
+    var impCol = x.impactPct >= 20 ? '#F23D4F' : x.impactPct >= 10 ? '#FF7733' : '#B45309';
+    var ownCol = x.lostPct   >= 30 ? '#F23D4F' : x.lostPct   >= 15 ? '#FF7733' : '#B45309';
+    html += '<tr style="border-bottom:1px solid #E8EEF4">'
+      + '<td style="padding:5px 7px;font-size:13px">' + medal + '</td>'
+      + '<td style="padding:5px 7px;font-weight:700;color:var(--dark)">' + x.t + '</td>'
+      + '<td style="padding:5px 7px;text-align:center;font-weight:700;color:#F23D4F">'
+          + x.lost + '<span style="font-weight:400;color:#aaa;font-size:9px"> / ' + x.totalTransp + '</span></td>'
+      + '<td style="padding:5px 7px;text-align:center;font-weight:700;color:' + ownCol + '">' + x.lostPct + '%</td>'
+      + '<td style="padding:5px 7px;text-align:center;font-weight:800;color:' + impCol + '">' + x.impactPct + '%</td>'
+      + '</tr>';
+  });
+  html += '</tbody></table>';
+
+  // Rodapé resumo (baseado no filtro ativo)
+  var totalLost    = ranking.reduce(function(s,x){return s+x.lost;},0);
+  var totalImpact  = totalRoutes ? Math.round(totalLost/totalRoutes*100) : 0;
+  var selKeys      = Object.keys(_tmcSelected).filter(function(k){return _tmcSelected[k];});
+  var selNote      = selKeys.length ? ' (seleção: ' + selKeys.join(', ') + ')' : ' (todas as transportadoras)';
+  html += '<div style="font-size:10px;color:var(--g3);border-top:1px solid #E8EEF4;padding-top:6px;margin-top:4px">'
+    + 'Total filtrado: <strong style="color:#F23D4F">' + totalLost + ' rotas perdidas</strong>'
+    + ' · impacto: <strong style="color:#F23D4F">' + totalImpact + '%</strong> de ' + totalRoutes + ' rotas no filtro'
+    + selNote + '</div>';
+  return html + '</div>';
+}
+
+function updateTMCLostView(){
+  var filtered   = getFilteredLost();
+  var totalRoutes = filtered.length; // impacto calculado sobre o filtro ativo, não RAW_DATA
+
+  // Contador
+  var badge = document.getElementById('tmcLostBadge');
+  if (badge) {
+    var total = _tmcLostData.length;
+    var showing = filtered.length;
+    badge.textContent = '⚠ ' + showing + (showing !== total ? ' de ' + total : '') + ' TMC perdido' + (total !== 1 ? 's' : '');
+  }
+
+  // Subtítulo
+  var sub = document.getElementById('tmcLostSub');
+  if (sub) {
+    var selKeys = Object.keys(_tmcSelected).filter(function(k){return _tmcSelected[k];});
+    if (selKeys.length) {
+      sub.textContent = 'Mostrando ' + filtered.length + ' de ' + _tmcLostData.length + ' rotas — filtro: ' + selKeys.join(', ');
+    } else {
+      sub.textContent = _tmcLostData.length + ' rota' + (_tmcLostData.length !== 1 ? 's' : '') + ' com TMC acima de 30min (todas as transportadoras)';
+    }
+  }
+
+  // Ranking (passa totalRoutes = filtered.length para manter consistência)
+  var rankDiv = document.getElementById('tmcRankingBlock');
+  if (rankDiv) rankDiv.innerHTML = renderTMCRankingBlock(filtered, filtered.length || RAW_DATA.length);
+
+  // Tabela
+  renderTMCLostTable(filtered);
+}
+
+function tmcToggleTransp(t){
+  if(t==='TODOS'){
+    // Clear all selections
+    Object.keys(_tmcSelected).forEach(function(k){_tmcSelected[k]=false;});
+  } else {
+    _tmcSelected[t]=!_tmcSelected[t];
+  }
+  // Update checkbox visuals
+  document.querySelectorAll('[data-tmcf]').forEach(function(b){
+    var key=b.getAttribute('data-tmcf');
+    if(key==='TODOS'){
+      var anySelected=Object.keys(_tmcSelected).some(function(k){return _tmcSelected[k];});
+      b.style.background=anySelected?'#fff':'var(--blue)';
+      b.style.color=anySelected?'var(--blue)':'#FFE600';
+      b.style.borderColor='var(--blue)';
+    } else {
+      var active=!!_tmcSelected[key];
+      b.style.background=active?'var(--blue)':'#fff';
+      b.style.color=active?'#FFE600':'var(--blue)';
+      b.style.borderColor=active?'var(--blue)':'var(--g2)';
+    }
+  });
+  updateTMCLostView();
+}
+
+function showTMCLostOverlay(){
+  function toS(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+  var lost = [];
+  RAW_DATA.forEach(function(r,i){
+    var cin = r[14], cout = r[15];
+    if (!cin || typeof cin !== 'string' || cin.indexOf(':') < 0 || cin === '00:00:00') return;
+    if (!cout || cout.toString().indexOf(':') < 0) return;
+    var d = toS(cout.toString()) - toS(cin);
+    if (d < 0) d += 86400;
+    if (d < 1800) return;
+    lost.push({r:r, i:i, mins:Math.floor(d/60), minsSec:d});
+  });
+  lost.sort(function(a,b){return b.minsSec - a.minsSec;});
+  _tmcLostData = lost;
+
+  // Init filtro
+  _tmcSelected = {};
+  var transpSet = {};
+  lost.forEach(function(x){var t=TFIRST(x.r[2]);if(t)transpSet[t]=true;});
+  Object.keys(transpSet).sort().forEach(function(t){_tmcSelected[t]=false;});
+  var transpList = Object.keys(transpSet).sort();
+
+  // Botões de filtro
+  var filterBtns = '<div id="tmcLostFilters" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">'
+    + '<button data-tmcf="TODOS" style="padding:3px 10px;border-radius:12px;border:1.5px solid var(--blue);'
+    + 'background:var(--blue);color:#FFE600;font-size:10px;font-weight:700;cursor:pointer">Todos</button>';
+  transpList.forEach(function(t){
+    filterBtns += '<button data-tmcf="' + t + '" style="padding:3px 10px;border-radius:12px;'
+      + 'border:1.5px solid var(--g2);background:#fff;color:var(--blue);'
+      + 'font-size:10px;font-weight:700;cursor:pointer">' + t + '</button>';
+  });
+  filterBtns += '</div>'
+    + '<span id="tmcLostBadge" class="detail-pill delay" style="margin-bottom:6px">⚠ ' + lost.length + ' TMC perdido' + (lost.length!==1?'s':'') + '</span>';
+
+  document.getElementById('tmcLostSub').textContent = lost.length + ' rota' + (lost.length!==1?'s':'') + ' com TMC acima de 30min';
+  document.getElementById('tmcLostPills').innerHTML = filterBtns
+    + '<div id="tmcRankingBlock" style="width:100%;margin-top:4px"></div>';
+
+  // Cabeçalho da tabela — ordenado por onda decrescente
+  document.getElementById('tmcLostHead').innerHTML = '<tr>'
+    + '<th>Rota</th><th>Onda</th><th>Transp.</th>'
+    + '<th>Status Rota</th>'
+    + '<th>Check-in</th><th>Check-out</th>'
+    + '<th>TMC</th><th>TMC perdido</th>'
+    + '<th>Motorista</th>'
+    + '<th style="min-width:160px">Rotas Impactadas (mesma vaga)</th>'
+    + '</tr>';
+
+  updateTMCLostView();
+  document.getElementById('tmcLostOverlay').classList.add('open');
+
+  setTimeout(function(){
+    var filtersDiv = document.getElementById('tmcLostFilters');
+    if (filtersDiv) {
+      filtersDiv.querySelectorAll('[data-tmcf]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          tmcToggleTransp(this.getAttribute('data-tmcf'));
+        });
+      });
+    }
+  }, 50);
+}
+
+
+// ── OBS LOCAL ─────────────────────────────────────────────
+var _obsLocalIdx=null, _obsLocalRowIndex=null;
+function openObsLocal(idx){
+  _obsLocalIdx=idx;
+  _obsLocalRowIndex=RAW_DATA[idx]?RAW_DATA[idx][12]:null;
+  var r=RAW_DATA[idx];
+  document.getElementById('obsLocalSub').textContent='Rota '+r[1]+' · '+TFIRST(r[2]);
+  // Mostra obs da planilha (r[13]) com fallback ao cache local
+  document.getElementById('obsLocalInput').value=r[13]||OBS_LOCAL[idx]||'';
+  document.getElementById('obsLocalOverlay').classList.add('open');
+  setTimeout(function(){document.getElementById('obsLocalInput').focus();},100);
+}
+function cancelObsLocal(){
+  document.getElementById('obsLocalOverlay').classList.remove('open');
+  _obsLocalIdx=null; _obsLocalRowIndex=null;
+}
+function confirmObsLocal(){
+  var obs=document.getElementById('obsLocalInput').value.trim();
+  if(_obsLocalIdx===null) return;
+  var idx=_obsLocalIdx, rowIndex=_obsLocalRowIndex;
+  var rota=RAW_DATA[idx]?RAW_DATA[idx][1]:'';
+  // Atualiza localmente em r[13] para todos verem no próximo poll
+  RAW_DATA[idx][13]=obs;
+  if(obs){ OBS_LOCAL[idx]=obs; if(typeof _obsMeliCache!=='undefined') _obsMeliCache[rota]=obs; }
+  else { delete OBS_LOCAL[idx]; if(typeof _obsMeliCache!=='undefined') delete _obsMeliCache[rota]; }
+  document.getElementById('obsLocalOverlay').classList.remove('open');
+  renderList();
+  // Salva na planilha col Y — persiste entre sessões e visível para todos
+  if(rowIndex){
+    showToast('Salvando obs...');
+    callServer('salvarObsMeliServer',{rowIndex:rowIndex,turno:TURNO,obs:obs},function(res){
+        showToast('&#9989; Obs salva',2000);
+        if(res && res.ok && typeof _obsMeliCache!=='undefined') delete _obsMeliCache[rota];
+      },function(e){showToast('&#9888; Erro: '+(e.message||e),3000);});
+  }
+  _obsLocalIdx=null; _obsLocalRowIndex=null;
+}
+
+
+function hasSheetCheckin(i){
+  var r=RAW_DATA[i];if(!r)return false;
+  var v=r[14];
+  return !!(v&&typeof v==='string'&&v.indexOf(':')>=0&&v!=='00:00:00');
+}
+function fmtHS(t){
+  if(!t)return '';
+  var s=t.toString().trim();
+  return s.length>=5?s.substring(0,5):s;
+}
 function calcTMC(cin,cout){
-  if(!cin||!cout) return '';
+  if(!cin||!cout)return '';
   function toS(t){var p=t.toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
-  var d=toS(cout)-toS(cin);if(d<0)return '?';
+  var d=toS(cout)-toS(cin);
+  if(d<0)return '?';
   var h=Math.floor(d/3600),m=Math.floor((d%3600)/60),s=d%60;
   return (h>0?h+'h ':'')+pad(m)+'m'+pad(s)+'s';
 }
@@ -1399,31 +1895,30 @@ function startTMCCounters(){
       el.textContent=(h>0?h+'h ':'')+pad(m)+'m'+pad(s)+'s';
       var totalMin=Math.floor(d/60);
       el.classList.remove('tmc-warn','tmc-over');
-      if(totalMin>=30) el.classList.add('tmc-over');
-      else if(totalMin>=20) el.classList.add('tmc-warn');
+      if(totalMin>=30)el.classList.add('tmc-over');
+      else if(totalMin>=20)el.classList.add('tmc-warn');
     });
+    updateTMCCard();
   },1000);
 }
+
 function init(){
-  // Pede nome se ainda não foi salvo
-  if(!_SESSION_NOME) pedirNome();
-  USER={email:_SESSION_EMAIL, nome:_SESSION_NOME};
-  var dn=_SESSION_NOME.split(' ')[0]||'User';
-  document.getElementById('userName').textContent=dn;
-  document.getElementById('userAvatar').textContent=dn.charAt(0).toUpperCase();
-  document.getElementById('headerDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});
-  splash('Carregando turnos...');
-  google.script.run
-    .withSuccessHandler(function(turnos){
-      if(!turnos||!turnos.length){splashError({message:'Nenhuma aba Ciclo encontrada. Verifique o SHEET_ID no Code.gs.'});return;}
-      TURNO=turnos[0];
-      buildTurnoBar(turnos);
-      loadTurno(TURNO);
-    })
-    .withFailureHandler(function(e){
-      splashError({message:'Erro ao conectar: '+(e.message||e)+'. Verifique se o Apps Script está implantado como Execute as Me + Anyone.'});
-    })
-    .getTurnosServer();
+  splash('Identificando usuario...');
+  callServer('getUsuario',{},function(u){
+      USER=u;
+      console.log('[Meli] USER completo:', JSON.stringify(u));
+      console.log('[Meli] isMeli:', isMeli());
+      document.getElementById('userName').textContent=u.nome.split(' ')[0];
+      document.getElementById('userAvatar').textContent=u.nome.charAt(0).toUpperCase();
+      document.getElementById('headerDate').textContent=new Date().toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'});
+      splash('Carregando turnos...');
+      callServer('getTurnosServer',{},function(turnos){
+          if(!turnos||!turnos.length){splashError({message:'Nenhuma aba Ciclo encontrada na planilha.'});return;}
+          TURNO=turnos[0];
+          buildTurnoBar(turnos);
+          loadTurno(TURNO);
+        }),function(e){console.warn(e);},);
+    }),function(e){console.warn(e);},);
 }
 
 function loadTurno(turno){
@@ -1433,8 +1928,7 @@ function loadTurno(turno){
   var lbl=turno.replace(/ciclo\s*/i,'').trim()||turno;
   var el=document.getElementById('kCicloNome');
   if(el) el.textContent=turno;
-  google.script.run
-    .withSuccessHandler(function(dados){
+  callServer('getDadosServer',{turno:TURNO},function(dados){
       RAW_DATA=dados;
       loadSFromData();
       buildFilters();
@@ -1442,36 +1936,34 @@ function loadTurno(turno){
       hideSplash();
       startPolling();
       startCountdown();
-    })
-    .withFailureHandler(splashError)
-    .getDadosServer(turno);
+    },function(e){splashError({message:e.message||e});});
 }
 
 function refreshData(){
   showToast('Atualizando...');
-  google.script.run
-    .withSuccessHandler(function(dados){
+  callServer('getDadosServer',{turno:TURNO},function(dados){
       RAW_DATA=dados;
       loadSFromData();
       buildFilters();
       renderList();
       showToast('Atualizado',2000);
       document.getElementById('lastUpdate').textContent='Sync: '+nowStr();
-    })
-    .getDadosServer(TURNO);
+    }));
 }
 
 function startPolling(){
   clearInterval(pollingTimer);
   pollingTimer=setInterval(function(){
-    google.script.run
-      .withSuccessHandler(function(dados){
+    callServer('getDadosServer',{turno:TURNO},function(dados){
         RAW_DATA=dados;
+        // Reaplicar cache de obs Meli pendentes (salvas localmente mas ainda não confirmadas)
+        if(_obsMeliCache && Object.keys(_obsMeliCache).length > 0){
+          RAW_DATA.forEach(function(r){ if(_obsMeliCache[r[1]]) r[13]=_obsMeliCache[r[1]]; });
+        }
         loadSFromData(true); // merge: preserve local state not yet confirmed by server
         renderList();
         document.getElementById('lastUpdate').textContent='Sync: '+nowStr();
-      })
-      .getDadosServer(TURNO);
+      }));
   },20000);
 }
 
@@ -1649,11 +2141,23 @@ function updateProAlertPanel(){
   });
   ondasRisco.sort(function(a,b){return a.diff-b.diff;});
 
-  // ── 2. Delays sem justificativa ──
+  // ── 2. Delays sem justificativa — respeita filtro ativo ──
   var delaysSemJustif=[];
   RAW_DATA.forEach(function(r,i){
     if(getStatus(i)==='delay' && !getJustif(i)){
-      delaysSemJustif.push({rota:r[1],onda:r[0],transp:(r[2]||'').split(' ')[0],idx:i,rowIndex:r[12]});
+      // Verificar se a rota está no filtro ativo
+      var matchFilter=(
+        activeFilter==='TODOS'
+        || activeFilter==='__PENDING__'
+        || activeFilter==='__URGENT__'
+        || activeFilter==='__DELAY__'
+        || (activeFilter.indexOf('__ONDA__:')===0)
+        || r[2]===activeFilter
+        || TFIRST(r[2])===activeFilter
+      );
+      if(matchFilter){
+        delaysSemJustif.push({rota:r[1],onda:r[0],transp:(r[2]||'').split(' ')[0],idx:i,rowIndex:r[12]});
+      }
     }
   });
 
@@ -1756,13 +2260,15 @@ function toggleProAlert(){
   if(btn) btn.innerHTML=collapsed?'&#9660;':'&#9658;';
 }
 
+var _justifOnly=false; // true = só salvar justif, não alterar hora/check
 function promptJustifDelay(idx, rowIndex){
-  // Open the delay justif modal for an already-called delay route
+  // Open the delay justif modal — only saves justif, never touches hora/check
   var r=RAW_DATA[idx];
   if(!r) return;
+  _justifOnly=true;
   _pendingIdx=idx; _pendingRowIndex=rowIndex; _pendingHora=getHora(idx)||'';
   document.getElementById('delaySubtitle').textContent='Rota '+r[1]+' — adicionar justificativa:';
-  document.getElementById('delayInput').value=getJustif(idx)||'';
+  document.getElementById('delayInput').value='';
   document.querySelectorAll('.justif-opt').forEach(function(b){b.classList.remove('selected');});
   document.getElementById('delayOverlay').classList.add('open');
 }
@@ -1906,7 +2412,20 @@ function filterByTipo(tipo){
   document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});
   renderList();
 }
-function filterByPending(){activeFilter='__PENDING__';_urgentIdxs=[];document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});renderList();}
+function filterByPending(){
+  if(activeFilter==='__PENDING__'){
+    // Toggle off — volta para TODOS
+    activeFilter='TODOS';
+    showToast('Filtro removido',1500);
+  } else {
+    activeFilter='__PENDING__';
+    showToast('&#9203; Mostrando rotas pendentes',1500);
+  }
+  _urgentIdxs=[];
+  document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});
+  renderList();
+  window.scrollTo({top:300,behavior:'smooth'});
+}
 function filterByOndaVigente(){var ov=ondaVigente();if(ov) filterByOnda(ov);}
 function filterByOnda(onda){activeFilter='__ONDA__:'+onda;_urgentIdxs=[];document.querySelectorAll('.fbtn').forEach(function(b){b.classList.remove('selected');});renderList();}
 function filterByUrgent(pendentes){
@@ -1955,6 +2474,16 @@ function filtered(){
   } else if(activeFilter.indexOf('__ONDA__:')===0){
     var ov=activeFilter.replace('__ONDA__:','');
     base=RAW_DATA.map(function(r,i){return {r:r,i:i};}).filter(function(x){return x.r[0]===ov;});
+  } else if(activeFilter==='__TMC_ALERT__'){
+    base=RAW_DATA.map(function(r,i){return {r:r,i:i};}).filter(function(x){
+      var m=getTMCMins(x.r);return m!==null&&m>=20&&m<=30;
+    }).sort(function(a,b){return (getTMCMins(b.r)||0)-(getTMCMins(a.r)||0);});
+    return base;
+  } else if(activeFilter==='__TMC_LOST__'){
+    base=RAW_DATA.map(function(r,i){return {r:r,i:i};}).filter(function(x){
+      var m=getTMCMinsFinal(x.r);return m!==null&&m>30;
+    }).sort(function(a,b){return (getTMCMinsFinal(b.r)||0)-(getTMCMinsFinal(a.r)||0);});
+    return base;
   } else {
     base=RAW_DATA.map(function(r,i){return {r:r,i:i};}).filter(function(x){return activeFilter==='TODOS'||x.r[2]===activeFilter;});
   }
@@ -1990,7 +2519,7 @@ function buildSection(tipo,items){
     +'<span class="tipo-pill '+cls+'" id="pill-'+cls+'" style="--pct:'+pctPill+'%"><span>'+cnt+'/'+items.length+'</span></span>'
     +'</div>'
     +'<div class="tbl-wrap"'+(isMeli()?' style="--meli-col:40px"':'')+' >'
-    +'<div class="tbl-hd"><span>Chamado</span><span>Onda</span><span>Vaga</span><span>Rota</span><span>Motorista</span><span>Modal</span><span>Hora</span>'+(isMeli()?'<span style="text-align:center;color:#B45309">Obs</span>':'')+'</div>';
+    +'<div class="tbl-hd"><span>Chamado</span><span>Onda</span><span>Vaga</span><span>Rota</span><span>Motorista / Modal</span><span style="text-align:center;font-size:8px;line-height:1.2">Hora<br>Just</span><span style=\"text-align:center;color:#B45309\">TMC</span><span style=\"text-align:center;color:#555\">Obs</span>'+(isMeli()?'<span style="text-align:center;color:#B45309">Obs</span>':'')+'</div>';
   items.forEach(function(x){
     var r=x.r,i=x.i;
     var onda=r[0],rota=r[1],transp=r[2],modal=r[3],tipoRota=r[4],eta=r[6],vaga=r[7],motorista=r[8];
@@ -2004,8 +2533,8 @@ function buildSection(tipo,items){
     var stCls=status==='on time'?'st-ontime':status==='advance'?'st-advance':status==='delay'?'st-delay':'';
     var ondaCls=called&&status?' '+stCls:'';
     var modal3=(modal||'').split(' ').slice(0,3).join(' ');
-    html+='<div class="tbl-row'+(called?' called':'')+urgCls+'" data-t="'+transp+'" data-idx="'+i+'" onclick="toggle('+i+','+r[12]+',\''+rota.replace(/'/g,"\\'")+'\')">'
-      +'<div class="c-check"><div class="chkbox'+(called?' on':'')+'">'+( called?'&#10003;':'' )+'</div></div>'
+    html+='<div class="tbl-row'+(called?' called':'')+urgCls+'" data-t="'+transp+'" data-idx="'+i+'">'
+      +'<div class="c-check" onclick="toggle('+i+','+r[12]+',\''+ rota.replace(/'/g,"\\\'") +'\')"><div class="chkbox'+(called?' on':'')+'">'+( called?'&#10003;':'' )+'</div></div>'
       +'<div class="c-onda'+ondaCls+'">'
         +'<div class="onda-n">'+onda+'</div>'
         +'<div class="onda-e">'+eta+'</div>'
@@ -2016,22 +2545,53 @@ function buildSection(tipo,items){
         +'<div class="i-r1"><span class="rota-cd">'+rota+'</span>'+hib+'</div>'
         +'<div class="i-r2"><span class="tname" data-t="'+transp+'">'+TFIRST(transp)+'</span></div>'
       +'</div>'
-      +'<div class="c-mot"><span class="mot-tag'+(motorista?' filled':'')+'">'+( motorista||'&mdash;' )+'</span></div>'
-      +'<div class="c-modal"><span class="modal-tag">'+modal3+'</span></div>'
-      +'<div class="c-hora">'+(ct?'<span class="hora-t">'+ct.substring(0,5)+'</span>':'<span class="hora-dash">&mdash;</span>')+(activeFilter==='__DELAY__'&&justif?'<div style="font-size:8px;color:var(--g4);max-width:54px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px">'+justif+'</div>':'')+'</div>'
-      +'<div class="c-tmc" data-cin="'+(r[14]&&r[14].indexOf(':')>=0&&r[14]!=='00:00:00'?r[14]:'')+
-      '" data-cout="'+(r[15]&&r[15].indexOf(':')>=0&&r[15]!=='00:00:00'?r[15]:'')+
-      '">'+(r[14]&&r[14].indexOf(':')>=0&&r[14]!=='00:00:00'
-      ?'<span class="tmc-in">IN '+fmtHS(r[14])+'</span>'
-        +(r[15]&&r[15].indexOf(':')>=0&&r[15]!=='00:00:00'
-          ?'<span class="tmc-done">'+calcTMC(r[14],r[15])+'</span>'
-          :'<span class="tmc-timer" data-cin="'+r[14]+'">--:--</span>')
-      :'<span style="color:var(--g2)">&mdash;</span>')
+      +'<div class="c-mot">'
+      +'<span class="mot-tag'+(motorista?' filled':'')+'">'+(motorista||'&mdash;')+'</span>'
+      +(modal3?'<span style="font-size:7px;color:var(--g4);display:block;margin-top:1px;'+'white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+modal3+'</span>':'')
       +'</div>'
+      +'<div class="c-hora" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">'
+      +(ct?'<span class="hora-t">'+ct.substring(0,5)+'</span>':'<span class="hora-dash">&mdash;</span>')
+      +'<button onclick="event.stopPropagation();promptJustifDelay('+i+','+r[12]+')" title="'+(getJustif(i)?getJustif(i):'Adicionar justificativa')+'" style="background:none;border:none;padding:0;cursor:pointer;font-size:14px;line-height:1;display:inline-flex;'+( status==='delay'&&!getJustif(i) ? "'animation:blink-warn .7s step-start infinite'" : "''" )+'">📝</button>'
+      +'</div>'
+      +(function(){
+        var cin=r[14]&&r[14].indexOf(':')>=0&&r[14]!=='00:00:00'?r[14]:'';
+        var cout=r[15]&&r[15].toString().trim()&&r[15].indexOf(':')>=0?r[15]:'';
+        var inner;
+        if(cin){
+          var tmcM=getTMCMins(r);
+          var tmcCls=(tmcM!==null&&tmcM>=30)?'tmc-over':(tmcM!==null&&tmcM>=20)?'tmc-warn':'';
+          var doneTmc=cout?calcTMC(cin,cout):'';
+          // Usa getTMCMinsFinal que já trata virada de meia-noite e segundos
+          // Compara em segundos: >1800s = acima de 30:00 exatos
+          var doneOver=false;
+          if(cout){
+            function toSec3(t){var p=(t||'').toString().trim().split(':').map(Number);return (p[0]||0)*3600+(p[1]||0)*60+(p[2]||0);}
+            var _cin3=r[14]?r[14].toString().trim():'';
+            var _cout3=r[15]?r[15].toString().trim():'';
+            if(_cin3&&_cout3){var _d3=toSec3(_cout3)-toSec3(_cin3);if(_d3<0)_d3+=86400;doneOver=(_d3>1800);}
+          }
+          inner='<span class="tmc-in">IN '+fmtHS(cin)+'</span>'
+            +(cout?'<span class="tmc-done'+(doneOver?' tmc-done-over':'')+'">'+doneTmc+'</span>'
+              :'<span class="tmc-timer '+tmcCls+'" data-cin="'+cin+'">--:--</span>');
+        } else { inner='<span style="color:var(--g2)">&mdash;</span>'; }
+        return '<div class="c-tmc" data-cin="'+cin+'" data-cout="'+cout+'">'+inner+'</div>';
+      })()
+      +(function(){
+        // Obs: usa planilha (r[13]) como fonte principal, OBS_LOCAL como fallback local
+        var obsText=(r[13]||OBS_LOCAL[i]||'').toString().trim();
+        var hasObs=!!(obsText);
+        var obsPreview=obsText.length>14?obsText.substring(0,14)+'…':obsText;
+        return '<div class="c-obs" onclick="event.stopPropagation();openObsLocal('+i+')" title="'+(hasObs?obsText:'Adicionar observação')+'" style="display:flex;align-items:center;justify-content:center;border-left:1px solid var(--g2);padding:0 2px;cursor:pointer;min-width:0">'
+          +(hasObs
+            ?'<span style="font-size:9px;color:#B45309;font-weight:700;line-height:1.3;text-align:center;max-width:52px;overflow:hidden;word-break:break-word;display:block;padding:1px 2px">'+obsPreview+'</span>'
+            :'<span style="font-size:9px;font-weight:700;background:#e8eaed;color:#888;border-radius:4px;padding:1px 4px;line-height:1.6;white-space:nowrap">OBS</span>'
+          )
+        +'</div>';
+      })()
       // Meli obs button — only rendered for Meli users
       +(isMeli()?'<div style="display:flex;align-items:center;justify-content:center;border-left:1px solid var(--g2);padding:0 4px" onclick="event.stopPropagation();openObsMeli('+i+','+r[12]+')">'
         +'<button style="font-size:9px;font-weight:700;background:#FFF9E6;border:1px solid #FFE082;color:#B45309;border-radius:6px;padding:2px 6px;cursor:pointer;white-space:nowrap">'
-          +(r[13]?'&#9997;&#65039;':'&#128221;')
+          +(r[13]?'&#9997;&#65039;':'OBS')
         +'</button>'
       +'</div>':'')
       +'</div>';
@@ -2047,7 +2607,7 @@ function toggle(idx,rowIndex,rota){
     if(navigator.vibrate) navigator.vibrate(20);
     renderList();
     showToast('Removendo...');
-    google.script.run.withSuccessHandler(function(){showToast('Removido',2000);}).withFailureHandler(function(){showToast('Erro',2000);}).removerCheckServer(rowIndex,TURNO);
+    callServer('removerCheckServer',{rowIndex:rowIndex,turno:TURNO},function(){showToast('Removido',2000);},function(){showToast('Erro',2000);});
     return;
   }
   var hora=nowStr(),status=calcStatus(hora,eta);
@@ -2089,9 +2649,24 @@ function confirmDelay(){
   document.getElementById('delayOverlay').classList.remove('open');
   document.querySelectorAll('.justif-opt').forEach(function(b){b.classList.remove('selected');});
   document.getElementById('delayInput').value='';
-  commitCheck(_pendingIdx,_pendingRowIndex,_pendingHora,'delay',justif);
+  if(_justifOnly){
+    // Só salvar justificativa — não alterar hora nem marcar check
+    var idx=_pendingIdx, rowIndex=_pendingRowIndex;
+    if(RAW_DATA[idx]){
+      RAW_DATA[idx][11]=justif;
+      if(S[idx]) S[idx].justif=justif;
+      else S[idx]={called:S[idx]?S[idx].called:false,time:getHora(idx)||'',status:getStatus(idx)||'',justif:justif};
+    }
+    renderList();
+    showToast('Salvando justificativa...');
+    callServer('salvarJustifServer',{rowIndex:rowIndex,turno:TURNO,justif:justif},function(){showToast('&#9989; Justificativa salva',2000);}),function(e){showToast('&#9888; Erro: '+(e.message||e),3000);},{showToast('&#9888; Erro: '+(e.message||e),3000);}));
+    _justifOnly=false;
+  } else {
+    commitCheck(_pendingIdx,_pendingRowIndex,_pendingHora,'delay',justif);
+  }
 }
 function cancelDelay(){
+  _justifOnly=false;
   document.getElementById('delayOverlay').classList.remove('open');
   document.querySelectorAll('.justif-opt').forEach(function(b){b.classList.remove('selected');});
   var errEl=document.getElementById('delayJustifError');
@@ -2108,14 +2683,11 @@ function commitCheck(idx,rowIndex,hora,status,justif){
     return;
   }
   showToast('Salvando...');
-  google.script.run
-    .withSuccessHandler(function(res){
+  callServer('salvarCheckServer',{rowIndex:rowIndex,turno:TURNO,hora:hora,justif:justif},function(res){
       var st=res&&res.status?res.status:status;
       var icon=st==='on time'?'&#9989;':st==='advance'?'&#128309;':'&#9888;&#65039;';
       showToast(icon+' '+RAW_DATA[idx][1]+' &mdash; '+st,3000);
-    })
-    .withFailureHandler(function(e){showToast('&#9888; Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);})
-    .salvarCheckServer(rowIndex,TURNO,hora,justif);
+    }),function(e){showToast('&#9888; Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);},{showToast('&#9888; Erro ao salvar: '+(e.message||e)+'. Dado preservado localmente.',4000);}));
 }
 
 function updateStats(){
@@ -2140,8 +2712,11 @@ function updateStats(){
   document.getElementById('kDelayJ').textContent=delayJ;
   // delay bar
   var delayPct=total?Math.round(delay/total*100):0;
+  var ootOkPct=total?Math.round((total-delay)/total*100):0;
   var delayBarEl=document.getElementById('kDelayBar');
-  if(delayBarEl) delayBarEl.style.width=delayPct+'%';
+  if(delayBarEl) delayBarEl.style.width=ootOkPct+'%';
+  var kDPct=document.getElementById('kDelayPct');
+  if(kDPct) kDPct.textContent=ootOkPct+'%';
   document.getElementById('kVolPct').textContent=vPct+'%';
   document.getElementById('kVolBar').style.width=vPct+'%';
   document.getElementById('kVolCount').textContent=volC+'/'+volItems.length;
@@ -2149,6 +2724,7 @@ function updateStats(){
   document.getElementById('kLevBar').style.width=lPct+'%';
   document.getElementById('kLevCount').textContent=levC+'/'+levItems.length;
   updateFilterProgress();
+  updateTMCCard();
   ['vol','lev'].forEach(function(cls){
     var pill=document.getElementById('pill-'+cls);
     if(!pill) return;
@@ -2338,14 +2914,12 @@ function updateDashFilterBar(){ if(_dashData) buildDashFilterBar(_dashData); }
 
 function openDashboard(){
   showToast('Carregando...');
-  google.script.run
-    .withSuccessHandler(function(dash){
+  callServer('getDashboardServer',{turno:TURNO},function(dash){
       _dashData=dash;
       renderDashboard(dash);
       document.getElementById('dashModal').classList.add('open');
       showToast('',0);
-    })
-    .getDashboardServer(TURNO);
+    }));
 }
 
 function renderDashboard(dash){
@@ -3891,8 +4465,7 @@ function confirmReset(){
     document.getElementById('splash').classList.remove('hidden');
     document.getElementById('splash').style.display='flex';
     document.getElementById('app').classList.remove('ready');
-    google.script.run
-      .withSuccessHandler(function(dados){
+    callServer('getDadosServer',{turno:targetCiclo},function(dados){
         TURNO=targetCiclo;
         document.querySelectorAll('.turno-btn').forEach(function(b){
           b.classList.toggle('active',b.getAttribute('data-turno')===targetCiclo);
@@ -3903,12 +4476,10 @@ function confirmReset(){
         renderList();
         resetCount++;
         resetNext();
-      })
-      .withFailureHandler(function(e){
+      }),null,{
         hideSplash();
         showToast('&#9888; Erro ao recarregar '+cicloLbl+': '+(e.message||e),4000);
-      })
-      .getDadosServer(targetCiclo);
+      }));
   }
   resetNext();
 }
@@ -3932,17 +4503,33 @@ function cancelObsMeli(){
   document.getElementById('obsMeliOverlay').classList.remove('open');
   _obsMeliIdx=null; _obsMeliRowIndex=null;
 }
+// Cache local de obs Meli pendentes (rota->obs) para sobreviver ao polling
+var _obsMeliCache = {};
+
 function confirmObsMeli(){
   var obs=document.getElementById('obsMeliInput').value.trim();
   if(_obsMeliIdx===null) return;
-  RAW_DATA[_obsMeliIdx][13]=obs;
+  var idx=_obsMeliIdx, rowIndex=_obsMeliRowIndex;
+  var rota=RAW_DATA[idx]?RAW_DATA[idx][1]:'';
+  // Salva localmente e no cache (resiste ao polling)
+  RAW_DATA[idx][13]=obs;
+  if(obs) _obsMeliCache[rota]=obs; else delete _obsMeliCache[rota];
   document.getElementById('obsMeliOverlay').classList.remove('open');
   renderList();
   showToast('Salvando obs...');
-  google.script.run
-    .withSuccessHandler(function(){showToast('&#9989; Obs. Meli salva',2000);})
-    .withFailureHandler(function(e){showToast('&#9888; Erro: '+(e.message||e),3000);})
-    .salvarObsMeliServer(_obsMeliRowIndex, TURNO, obs);
+  console.log('[ObsMeli] Salvando: rowIndex='+rowIndex+' turno='+TURNO+' obs='+obs);
+  callServer('salvarObsMeliServer',{rowIndex:rowIndex,turno:TURNO,obs:obs},function(r){
+      console.log('[ObsMeli] Resposta servidor:', JSON.stringify(r));
+      if(r && r.ok){
+        showToast('&#9989; Obs salva (linha '+rowIndex+', col Y)',2000);
+        delete _obsMeliCache[rota];
+      } else {
+        showToast('&#9888; Erro ao salvar obs',3000);
+      }
+    }),function(e){console.error('[ObsMeli] Erro:',e);showToast('&#9888; Erro: '+(e.message||e),3000);},{
+      console.error('[ObsMeli] Erro:', e);
+      showToast('&#9888; Erro: '+(e.message||e),3000);
+    }));
   _obsMeliIdx=null; _obsMeliRowIndex=null;
 }
 
@@ -4065,7 +4652,15 @@ document.addEventListener('touchstart',function(e){ptY=e.touches[0].clientY;});
 document.addEventListener('touchend',function(e){if(e.changedTouches[0].clientY-ptY>80&&window.scrollY===0) refreshData();});
 
 function splash(msg){document.getElementById('splashMsg').textContent=msg;}
-function splashError(e){document.getElementById('splashMsg').textContent='Erro: '+(e.message||e);document.querySelector('#splash .spinner').style.display='none';}
+function splashError(e){
+  var msg = e.message||e||'Erro desconhecido';
+  var el = document.getElementById('splashMsg');
+  el.innerHTML = '<span style="color:#F23D4F;font-weight:700">&#9888; '+msg+'</span>'
+    + (msg.indexOf('Failed')+msg.indexOf('CORS')+msg.indexOf('fetch')>-3
+      ? '<br><span style="font-size:11px;color:#555;margin-top:8px;display:block">Verifique se o deploy do Apps Script está com acesso "Qualquer pessoa" e se o novo Code.gs foi deployado.</span>'
+      : '');
+  document.querySelector('#splash .spinner').style.display='none';
+}
 function hideSplash(){var s=document.getElementById('splash');s.classList.add('hidden');document.getElementById('app').classList.add('ready');setTimeout(function(){s.style.display='none';},500);}
 var toastTimer;
 function showToast(msg,ms){var t=document.getElementById('toast');t.innerHTML=msg;t.style.opacity=msg?'1':'0';clearTimeout(toastTimer);if(ms)toastTimer=setTimeout(function(){t.style.opacity='0';},ms);}
